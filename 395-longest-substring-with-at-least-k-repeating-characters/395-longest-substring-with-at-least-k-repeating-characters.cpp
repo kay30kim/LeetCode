@@ -1,28 +1,63 @@
-class Solution {
+class Solution2 {
 private:
-    string S;
-    int K;
-    int lenLongestSubstring(int start, int end){
-        if (start>end || end<start) return 0;
-        if (start==end) return K==1 ? 1 : 0;
-        int nChar[27]={0,};
-        for(int i=start; i<=end; i++){
-            nChar[S[i]-'a']++;
-        }
-        int mid=-1;
-        for(int i=start; i<=end; i++){
-            if(nChar[S[i]-'a'] < K){
-                mid = i;
-                break;
+    int nChar[27];
+    int num;
+public:
+    int numUniqChar(string s) {
+        num = 0;
+        for(int i=0; i<s.length(); i++){
+            if(nChar[s[i]-'a']==0){
+                nChar[s[i]-'a']++;
+                num++;
             }
         }
-        if(mid==-1) return (end-start+1) >= K ? (end-start+1) : 0;
-        return max(lenLongestSubstring(start,mid-1),lenLongestSubstring(mid+1,end));
+        return num;
     }
+};
+class Solution {
+private:
+    Solution2 fun;
+    int nChar[27];
 public:
     int longestSubstring(string s, int k) {
-        S = s;
-        K = k;
-        return lenLongestSubstring(0,s.size()-1);
+        // clear();
+        int maxAlphabet = fun.numUniqChar(s), ans=0;
+        //printf("%d\n",maxAlphabet);
+        for(int nAlphabet=1; nAlphabet<=maxAlphabet; nAlphabet++){
+            clear();
+            int len=0, nowNAlphabet = 0, p1=0, p2=0, sAlphabet = 0;
+            while(p2 < s.size()){
+                //if(nChar[s[p2]-'a'])
+                // printf("now = %d  이번 턴 최대 알파벳 수 = %d, p1 = %d p2 = %d len = %d\n", nowNAlphabet, nAlphabet,p1,p2,len);
+                // printf("nChar = %d\n",nChar[s[p2]-'a']);
+                if(nowNAlphabet<=nAlphabet){ // <
+                    if(nChar[s[p2]-'a']==0)nowNAlphabet++;
+                    nChar[s[p2]-'a']++;
+                    if(nChar[s[p2]-'a']==k) sAlphabet++;
+                    len++;
+                    p2++;
+                }else{
+                    if(nChar[s[p1]-'a']==k) sAlphabet--;
+                    nChar[s[p1]-'a']--;
+                    if(nChar[s[p1]-'a']==0)nowNAlphabet--;
+                    len--;
+                    p1++;                    
+                }
+                // printf("now = %d  이번 턴 최대 알파벳 수 = %d, p1 = %d p2 = %d len = %d\n", nowNAlphabet, nAlphabet,p1,p2,len);
+                //printf("nChar = %d\n",nChar[s[p2]-'a']);
+                //printf("%d %d %d\n\n",nowNAlphabet, nAlphabet, sAlphabet);
+                if(nowNAlphabet == nAlphabet && nowNAlphabet == sAlphabet){
+                    //printf("len = %d, ans = %d\n",len,ans);
+                    ans = max(len,ans);
+                }
+            }
+            //printf("==============\n");
+        }
+        return ans;
+    }
+    void clear(){
+        for(int i=0 ; i<27; i++){
+            nChar[i] = 0;
+        }
     }
 };
