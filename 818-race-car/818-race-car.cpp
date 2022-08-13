@@ -15,9 +15,9 @@ public:
             Point now = q.front();
             q.pop();
             
-            string nvisited = to_string(now.position)+'_'+to_string(now.speed);
-            if(visited[nvisited]==1) continue;
-            visited[nvisited]=1;
+            //string nvisited = to_string(now.position)+'_'+to_string(now.speed);
+            //if(visited[nvisited]==1) continue;
+            //visited[nvisited]=1;
             
             //printf("%d %d %d\n",now.speed, now.position, now.length);
             if(target==now.position){
@@ -33,9 +33,9 @@ public:
             }
             
             // reverse
-            if(now.speed>0)
+            if(now.speed>0 && now.position + now.speed > target)
                 q.push({-1,now.position,now.length+1});
-            else
+            else if(now.speed<0 && now.position + now.speed < target)
                 q.push({1,now.position,now.length+1});
         }
     }
