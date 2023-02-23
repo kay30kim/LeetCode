@@ -6,7 +6,7 @@ public:
             sum+=num;
             if(sum<num) sum=num;
             if(sum>ans) ans=sum;
-            printf("%d %d\n",sum,ans);
+            //printf("%d %d\n",sum,ans);
         }
         return ans;
     }
