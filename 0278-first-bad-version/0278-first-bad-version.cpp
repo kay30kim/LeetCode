@@ -6,7 +6,7 @@ private:
     int ans=0;
 public:
     void binarySearch(int left, int right){
-        int mid = left - (left-right)/2;
+        int mid = left + (right-left)/2;
         if(isBadVersion(mid)) {
             ans=mid; 
             if(left!=right) binarySearch(left,mid);
