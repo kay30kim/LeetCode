@@ -10,16 +10,22 @@
  * };
  */
 class Solution {
+private:
+    TreeNode *prev;
 public:
-    bool recursive(TreeNode* node, TreeNode* left, TreeNode* right){
+    // bool inorder(TreeNode* node, TreeNode *prev){ wrongway 왜냐면 전꺼로 prev가 바뀌여야함 나왔을때
+    bool inorder(TreeNode* node){
         if(node==NULL) return true;
         
-        if(left!=NULL && node->val <= left->val) return false;
-        if(right!=NULL && node->val >= right->val) return false;
-        
-        return recursive(node->left, left, node) & recursive(node->right, node,right);
+        // if(node->left) inorder(node->left, prev); wrong way
+        if(!inorder(node->left)) return false;
+    
+        if(prev!=NULL && node->val <= prev->val) return false;
+            
+        prev = node;
+        return inorder(node->right);
     }
     bool isValidBST(TreeNode* root) {
-        return recursive(root,NULL, NULL);
+        return inorder(root);
     }
 };
