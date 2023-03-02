@@ -13,38 +13,24 @@
 // 1) dfs
 // 
 // 2) bfs
-// queue 
+// Time Complexity : O(N) / Space Complexity : O(N/2) == O(N)
 
 class Solution {
 private:
-    struct Point{
-        TreeNode* node;
-        int depth;
-    };
-public:    
+    vector<vector<int>> ans;
+public:        
+    void dfs(TreeNode *node, int depth){
+        if(ans.size()==depth){
+            ans.push_back(vector<int>());
+        }
+        //printf("%d\n",depth);
+        ans[depth].push_back(node->val);
+        
+        if(node->left) dfs(node->left,depth+1);
+        if(node->right) dfs(node->right, depth+1);
+    }
     vector<vector<int>> levelOrder(TreeNode* root) {
-        
-        queue<Point> q;
-        vector<vector<int>> ans;
-        if(root==NULL) return ans;
-        
-        q.push({root,0});
-        
-        while(!q.empty()){            
-            vector<int> tmp;
-            int size=q.size();
-            for(int i=0; i<size; i++){
-                Point now = q.front();
-                q.pop();
-                
-                tmp.push_back(now.node->val);
-                if(now.node->left) q.push({now.node->left, now.depth+1});
-                if(now.node->right) q.push({now.node->right, now.depth+1});
-            }
-            
-            ans.push_back(tmp);        
-            
-        }       
+        if(root) dfs(root,0);
         return ans;
     }
 };
