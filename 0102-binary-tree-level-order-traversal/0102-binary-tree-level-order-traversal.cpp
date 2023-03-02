@@ -9,23 +9,42 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+
+// 1) dfs
+// 
+// 2) bfs
+// queue 
+
 class Solution {
 private:
-    vector<vector<int>> ans;
-public:
-    void dfs(TreeNode *node, int depth){
-        if(ans.size() == depth){
-            ans.push_back(vector<int>());
-        }
-        ans[depth].push_back(node->val);
+    struct Point{
+        TreeNode* node;
+        int depth;
+    };
+public:    
+    vector<vector<int>> levelOrder(TreeNode* root) {
         
-        if(node->left) dfs(node->left, depth+1);
-        if(node->right) dfs(node->right, depth+1);
-    }
-    
-    vector<vector<int>> levelOrder(TreeNode* root) {        
-        if(!root) return ans;
-        dfs(root, 0);
+        queue<Point> q;
+        vector<vector<int>> ans;
+        if(root==NULL) return ans;
+        
+        q.push({root,0});
+        
+        while(!q.empty()){            
+            vector<int> tmp;
+            int size=q.size();
+            for(int i=0; i<size; i++){
+                Point now = q.front();
+                q.pop();
+                
+                tmp.push_back(now.node->val);
+                if(now.node->left) q.push({now.node->left, now.depth+1});
+                if(now.node->right) q.push({now.node->right, now.depth+1});
+            }
+            
+            ans.push_back(tmp);        
+            
+        }       
         return ans;
     }
 };
