@@ -2,8 +2,7 @@
  * @return {Function}
  */
 function createHelloWorld() {
-    function f(){return "Hello World"}
-    return f;
+    return () => "Hello World";
 }
 
 /**
