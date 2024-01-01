@@ -1,7 +1,7 @@
 /**
  * @return {Function}
  */
-function createHelloWorld() {
+var createHelloWorld = function() {
     return () => "Hello World";
 }
 
