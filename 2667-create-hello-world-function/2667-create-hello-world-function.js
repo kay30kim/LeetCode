@@ -2,7 +2,7 @@
  * @return {Function}
  */
 var createHelloWorld = function() {
-    return () => "Hello World";
+    return (...args) => "Hello World";
 }
 
 /**
