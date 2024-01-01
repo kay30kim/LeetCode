@@ -9,13 +9,12 @@
 class Solution {
 public:
     bool hasCycle(ListNode *head) {
-        ListNode *slow = head;
-        ListNode *fast = head;
-        while (fast && fast->next) {
-            slow = slow->next;
-            fast = fast->next->next;
-            if (slow == fast)
+        unordered_map<ListNode*, int> hash;
+        while (head) {
+            if (hash.find(head) != hash.end())
                 return true;
+            hash[head] = 1;
+            head = head->next;
         }
         return false;
     }
