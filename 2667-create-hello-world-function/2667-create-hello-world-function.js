@@ -1,8 +1,15 @@
 /**
  * @return {Function}
  */
-var createHelloWorld = function() {
-    return (...args) => "Hello World";
+// var createHelloWorld = function() {
+    
+//     return function(...args) {
+//         return "Hello World";
+//     }
+// };
+
+function createHelloWorld() {
+    return () => "Hello World";
 }
 
 /**
