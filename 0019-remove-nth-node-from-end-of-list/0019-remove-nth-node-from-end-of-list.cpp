@@ -11,6 +11,20 @@
 class Solution {
 public:
     ListNode* removeNthFromEnd(ListNode* head, int n) {
+        // 최적화 풀이
+        ListNode *tmp = new ListNode(0, head);
+        ListNode *ptr = head;
+        ListNode *ptr_nprev = tmp;
+        for (int i = 0 ; i < n; i++) 
+            ptr = ptr->next;
+        while (ptr) {
+            ptr = ptr->next;
+            ptr_nprev = ptr_nprev->next;
+        }
+        ptr_nprev->next = ptr_nprev->next->next;
+        return tmp->next;
+        
+        /* 풀이 2
         ListNode *ptr = head;
         ListNode *prev = NULL;
         int num = 0;
@@ -25,13 +39,11 @@ public:
             prev = ptr;
             ptr = ptr->next;
         }
-        if (prev){
-          //  printf("%d %d\n",prev->val, ptr->val);
+        if (prev)
             prev->next = ptr->next;
-        }
         else
-            return head->next;
+            head = head->next;
         return head;
-        
+        */
     }
 };
