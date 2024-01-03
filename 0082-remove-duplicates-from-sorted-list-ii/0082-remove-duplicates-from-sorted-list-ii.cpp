@@ -13,8 +13,8 @@ public:
     ListNode* deleteDuplicates(ListNode* head) {
         unordered_map<int, int> hash;
         ListNode *ptr = head;
-        ListNode *ans = new ListNode(0, head);
-        ListNode *prev = ans;
+        ListNode *ans = new ListNode(0, head); // useful for prev
+        ListNode *prev = ans; // Always need for removing node
         while (ptr) {
             hash[ptr->val]++;
             ptr = ptr->next;
