@@ -4,6 +4,18 @@
  */
 var createCounter = function(init) {
     let val = init;
+    function increment() {
+        return ++val;
+    }
+    function decrement() {
+        return --val;
+    }
+    function reset() {
+        val = init;
+        return val;
+    }
+    return {increment, decrement, reset};
+    /*
     const inital = init;
     return {
         increment: () => {
@@ -18,7 +30,7 @@ var createCounter = function(init) {
             val = inital;
             return val;
         }
-    }
+    }*/
 };
 
 /**
