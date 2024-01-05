@@ -2,15 +2,24 @@ class Solution {
 public:
     int lower_bound(vector<int>& arr, int num) {
         int left = 0, right = arr.size() - 1;
-        while (left <= right) { // lower_bound에서는 =이 없다?
+        while (left < right) { // lower_bound에서는 =이 없다?
             int mid = (left + right) / 2;
             if (arr[mid] > num)
-                right = mid - 1;
+                right = mid;
             else if (arr[mid] < num)
                 left = mid + 1;
             else
                 return mid;
         }
+        // while (left <= right) { // lower_bound에서는 =이 없다?
+        //     int mid = (left + right) / 2;
+        //     if (arr[mid] > num)
+        //         right = mid - 1;
+        //     else if (arr[mid] < num)
+        //         left = mid + 1;
+        //     else
+        //         return mid;
+        // }
         return left;
     }
     int lengthOfLIS(vector<int>& nums) {
